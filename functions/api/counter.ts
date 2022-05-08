@@ -1,31 +1,34 @@
-// const endpoint = 'REPLACE_UPSTASH_REST_ENDPOINT'
-// const token = 'REPLACE_UPSTASH_REST_TOKEN'
+import { Redis } from '@upstash/redis/cloudflare'
 
-// async function recordRequest(request) {
-//   let d = new Date();
-//   let datestr = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate();
-//   let data = [["url", request.url], ...request.headers]
-//   let url = endpoint + '/lpush/' + datestr
-//   const init = {
-//     body: JSON.stringify(data),
-//     method: "POST",
-//     headers: {
-//       "Authorization": "Bearer " + token
-//     },
-//   }
-//   return await fetch(url, init);
-// }
+const redisKey = 'COUNTERS'
+const redisMember = 'pageViews'
 
-export async function onRequestGet({ params }) {
-  const res = await fetch(`https://rickandmortyapi.com/api/character/1`)
-  const data = await res.json()
-  const info = JSON.stringify(data, null, 2)
-  return new Response(info)
+
+const getRedisKey = (key, {REDIS_KEY_PREFIX}) => {
+  return `${REDIS_KEY_PREFIX}${key}`
 }
+
+const getRedis = ({ UPSTASH_REDIS_REST_URL, UPSTASH_REDIS_REST_TOKEN }) => {
+  return new Redis({
+    url: UPSTASH_REDIS_REST_URL,
+    token: UPSTASH_REDIS_REST_TOKEN,
+  })
+}
+
+// Use onRequest as a catchall
+// export async function onRequest(context) { ... }
+// Or use named methods onRequestGet, onRequestPost, etc.
+
+// Increment the counter and return its new value
+export async function onRequestGet(context) {
+  const redis = getRedis(context.env)
+  const count = await redis.zincrby(getRedisKey(redisKey, context.env), 1, redisMember)
+  return new Response(`Count: ${count}`)
+}
+
 
 export async function onRequestPost(context) {
   // ...
 }
 
 export const onRequestPut = onRequestPost
-
