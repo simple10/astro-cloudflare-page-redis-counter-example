@@ -4,6 +4,10 @@ This example shows how to deploy a simple astro site to Cloudflare Pages with a 
 
 Since Cloudflare workers are stateless, normal redis database connections do not work. Upstash provides a REST API to redis with a special library for Cloudflare workers.
 
+Astro fetches an compiles data at build time by default. The `src/components/Counter.astro` file shows an example of a component that fetches and statically compiles counter data at build time.
+
+For dyanmic display of the page view count, the `src/components/DnymaicCounter.svelt` file is used.
+
 
 # Deploying to Cloudflare Pages
 
@@ -11,6 +15,7 @@ Since Cloudflare workers are stateless, normal redis database connections do not
 2. Connect the github repo
 3. Set environment vars (secrets) in Cloudflare using wrangler or the web GUI
 4. Push code to github to trigger a build
+
 
 
 # Local Development
