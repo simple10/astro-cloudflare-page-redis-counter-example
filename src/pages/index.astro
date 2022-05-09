@@ -1,5 +1,8 @@
 ---
 import Layout from '../components/Layout.astro';
+// import Counter from '../components/Counter.astro';
+import Counter from '../components/Counter.svelte';
+import CountUpDown from '../components/CountUpDown.svelte';
 ---
 
 <Layout title="Welcome to Astro.">
@@ -45,6 +48,12 @@ import Layout from '../components/Layout.astro';
 				</a>
 			</li>
 		</ul>
+
+		<CountUpDown client:visible>
+			<h1>Hello Svelte!</h1>
+		</CountUpDown>
+
+		<Counter apiUrl={import.meta.env.PUBLIC_API_URL} client:only="svelte" />
 	</main>
 </Layout>
 

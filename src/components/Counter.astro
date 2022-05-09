@@ -1,0 +1,27 @@
+---
+// Astro.request.url is set the astro server port for local dev.
+// To get the port of the wrangler (miniflare) server, it has to be
+// passed in on the command line when the server is started.
+// This will likely be fixed in wrangler 2.1.
+// @see https://github.com/cloudflare/wrangler2/issues/696
+// @see https://docs.astro.build/en/guides/environment-variables/
+
+// import { Debug } from 'astro/components'
+
+const baseUrl = import.meta.env.PUBLIC_API_URL || new URL(Astro.request.url).origin
+const response = await fetch(`${baseUrl}/api/counter`)
+const data = await response.json()
+const count = data.count
+---
+
+<div class="counter">
+  <strong>Page Views:</strong>
+  <span>{ count }</span>
+</div>
+
+<!--
+<Debug {import.meta.env} />
+<Debug {Astro.request.url} />
+<Debug {Astro.canonicalURL} />
+<Debug {Astro.site} />
+-->
