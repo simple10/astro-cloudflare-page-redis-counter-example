@@ -13,9 +13,10 @@ For dyanmic display of the page view count, the `src/components/DnymaicCounter.s
 
 1. Create a new Cloudflare Pages project
 2. Connect the github repo
-3. Set environment vars (secrets) in Cloudflare using wrangler or the web GUI
+3. Set environment vars in Cloudflare using wrangler or the web GUI
 4. Push code to github to trigger a build
 
+[View deployed site](https://astro-cloudflare-page-redis-counter-example.pages.dev/)
 
 
 # Local Development
