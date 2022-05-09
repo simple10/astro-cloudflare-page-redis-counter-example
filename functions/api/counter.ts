@@ -23,7 +23,12 @@ const getRedis = ({ UPSTASH_REDIS_REST_URL, UPSTASH_REDIS_REST_TOKEN }) => {
 export async function onRequestGet(context) {
   const redis = getRedis(context.env)
   const count = await redis.zincrby(getRedisKey(redisKey, context.env), 1, redisMember)
-  return new Response(`Count: ${count}`)
+  const response = { count: count }
+  return new Response(JSON.stringify(response, null, 2), {
+    headers: {
+      'content-type': 'application/json; charset=UTF-8',
+    },
+  })
 }
 
 

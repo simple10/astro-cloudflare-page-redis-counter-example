@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "wrangler pages dev --binding $(grep UPSTASH_REDIS_REST_TOKEN .env) $(grep UPSTASH_REDIS_REST_URL .env) $(grep REDIS_KEY_PREFIX .env) -- astro dev",
+    "dev": "PUBLIC_API_URL=http://localhost:8788 wrangler pages dev --port 8788 --binding $(grep UPSTASH_REDIS_REST_TOKEN .env) $(grep UPSTASH_REDIS_REST_URL .env) $(grep REDIS_KEY_PREFIX .env) -- astro dev",
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview"
