@@ -8,6 +8,8 @@ Astro fetches an compiles data at build time by default. The `src/components/Cou
 
 For dyanmic display of the page view count, the `src/components/DnymaicCounter.svelt` file is used.
 
+The counter component / API stores counter data in a sorted set. This could be useful for storing counts per page and then showing which pages receive the most hits.
+
 
 # Deploying to Cloudflare Pages
 
